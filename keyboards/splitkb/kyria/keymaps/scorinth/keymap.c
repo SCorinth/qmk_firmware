@@ -103,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        `----------------------------------'  `----------------------------------'
  */
     [_NAV] = LAYOUT(
-      _______, KC_DEL , KC_HOME,  KC-UP , KC_END , KC_PGUP,                                     KC_NLCK, KC_P7  , KC_P8  , KC_P9  , KC_PAST, KC_PSLS,
+      _______, KC_DEL , KC_HOME,  KC_UP , KC_END , KC_PGUP,                                     KC_NLCK, KC_P7  , KC_P8  , KC_P9  , KC_PAST, KC_PSLS,
       _______, KC_INS , KC_LEFT, KC_DOWN, KC_RGHT, KC_PGDN,                                     KC_PDOT, KC_P4  , KC_P5  , KC_P6  , KC_PPLS, KC_PMNS,
       _______, KC_PSCR, KC_MPRV, KC_MPLY, KC_MNXT,KC_PAUSE, _______, KC_SLCK, _______, _______, KC_P0  , KC_P1  , KC_P2  , KC_P3  , KC_PENT, KC_PENT,
                                  _______, _______, _______, _______, KC_CAPS, _______, _______, _______, KC_PDOT, _______
