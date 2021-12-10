@@ -3,9 +3,9 @@
 This keymap is meant to combine the switchable default layers of the default Kyria keymap with the following features:
 
 Implemented:
+1. Moving control keys from the pinkies to the thumbs as in Ergodox-based keymaps.
 
 Future:
-1. Moving control keys from the pinkies to the thumbs as in Ergodox-based keymaps.
 2. The rotary encoder modes from the "gotham" keymap.
 3. A Stenography layer for use with Plover.
 4. Dynamic macro functionality.
@@ -68,7 +68,7 @@ Aside from variations in the alpha cluster, the rest of the base keys remain the
 
 ```
 Nav Layer: Media, navigation
-                                                                                                                         
+
 ,-------------------------------------------.                              ,-------------------------------------------.
 |        |      |      |      |      |      |                              | PgUp | Home |   ↑  | End  | VolUp| Delete |
 |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
@@ -94,7 +94,7 @@ Useful mnemonics:
 ## Sym layer
 ```
 Sym Layer: Numbers, symbols
-                                                                                                                         
+
 ,-------------------------------------------.                              ,-------------------------------------------.
 |    `   |  1   |  2   |  3   |  4   |  5   |                              |   6  |  7   |  8   |  9   |  0   |   =    |
 |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
@@ -110,7 +110,7 @@ The top row is the unshifted num row, the home row of the layer is the shifted n
 
 The layout of the first two rows needs no introduction, you're already used to them but it's worth looking into the structure of the bottom row.
 
-The two halves are mirrored in a sense. On the right, you can find <kbd>,</kbd> <kbd>.</kbd> <kbd>/</kbd> at their usual spots with the addition of <kbd>Shift</kbd>+<kbd>/</kbd>=<kbd>?</kbd> to the right of the <kbd>/</kbd> key to remove the need to press simultaneously <kbd>Sym</kbd> and a <kbd>Shift</kbd> key to access `?`. 
+The two halves are mirrored in a sense. On the right, you can find <kbd>,</kbd> <kbd>.</kbd> <kbd>/</kbd> at their usual spots with the addition of <kbd>Shift</kbd>+<kbd>/</kbd>=<kbd>?</kbd> to the right of the <kbd>/</kbd> key to remove the need to press simultaneously <kbd>Sym</kbd> and a <kbd>Shift</kbd> key to access `?`.
 
 Now, if you look at the left side, you'll notice that the mirror of <kbd>,</kbd> is <kbd>;</kbd>, the mirror of <kbd>.</kbd> is <kbd>:</kbd> and the mirror of <kbd>/</kbd> is <kbd>\\</kbd>. The same logic used for <kbd>Shift</kbd>+<kbd>/</kbd>=<kbd>?</kbd> also applies to <kbd>Shift</kbd>+<kbd>\\</kbd>=<kbd>|</kbd>.
 
@@ -119,7 +119,7 @@ In case you wish to combine <kbd>Shift</kbd> with a symbol key anyways, you can 
 ## Function layer
 ```
 Function Layer: Function keys
-                                                                                                                         
+
 ,-------------------------------------------.                              ,-------------------------------------------.
 |        |  F9  | F10  | F11  | F12  |      |                              |      |      |      |      |      |        |
 |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
@@ -141,7 +141,7 @@ Since there are more than 10 function keys, the cluster of F-keys does not follo
 ## Adjust layer
 ```
 Adjust Layer: Default layer settings, RGB
-                                                                                                                         
+
 ,-------------------------------------------.                              ,-------------------------------------------.
 |        |      |      |QWERTY|      |      |                              |      |      |      |      |      |        |
 |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|

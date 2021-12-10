@@ -17,16 +17,25 @@
 #pragma once
 
 #ifdef RGBLIGHT_ENABLE
-#    define RGBLIGHT_ANIMATIONS
+//#    define RGBLIGHT_ANIMATIONS
+#    define RGBLIGHT_EFFECT_BREATHING
+#    define RGBLIGHT_EFFECT_RAINBOW_MOOD
+#    define RGBLIGHT_EFFECT_RAINBOW_SWIRL
+#    define RGBLIGHT_EFFECT_KNIGHT
 #    define RGBLIGHT_HUE_STEP  8
 #    define RGBLIGHT_SAT_STEP  8
 #    define RGBLIGHT_VAL_STEP  8
 #    define RGBLIGHT_LIMIT_VAL 150
 #endif
 
+#ifdef ENCODER_ENABLE
+#    define ENCODER_DIRECTION_FLIP
+#    define ENCODER_RESOLUTION 2
+#endif
+
 // Lets you roll mod-tap keys
 #define IGNORE_MOD_TAP_INTERRUPT
 
 // If you are using an Elite C rev3 on the slave side, uncomment the lines below:
-// #define SPLIT_USB_DETECT
-// #define NO_USB_STARTUP_CHECK
+ #define SPLIT_USB_DETECT
+ #define NO_USB_STARTUP_CHECK

@@ -15,6 +15,17 @@
  */
 #include QMK_KEYBOARD_H
 
+#include "keycodes.h"
+
+#ifdef ENCODER_ENABLE
+#    include "encoder_utils.h"
+#endif
+
+#ifdef OLED_ENABLE
+#    include "oled_utils.h"
+#endif
+
+/*
 enum layers {
     _DVORAK = 0,
     _QWERTY,
@@ -23,7 +34,7 @@ enum layers {
     _FUNCTION,
     _ADJUST,
 };
-
+*/
 
 // Aliases for readability
 #define QWERTY   DF(_QWERTY)
@@ -64,7 +75,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_LALT , KC_Q ,  KC_W   ,  KC_E  ,   KC_R ,   KC_T ,                                        KC_Y,   KC_U ,  KC_I ,   KC_O ,  KC_P , KC_QUOT,
      KC_LSFT , KC_A ,  KC_S   ,  KC_D  ,   KC_F ,   KC_G ,                                        KC_H,   KC_J ,  KC_K ,   KC_L ,KC_SCLN, KC_RSFT,
      KC_LCTL , KC_Z ,  KC_X   ,  KC_C  ,   KC_V ,   KC_B , KC_EQL , KC_ESC,     KC_DEL , KC_MINS, KC_N,   KC_M ,KC_COMM, KC_DOT ,KC_SLSH, KC_RCTL,
-                                XXXXXXX, KC_LGUI,   SYM  , KC_SPC ,KC_BSPC,     KC_TAB , KC_ENT , NAV , KC_RALT,XXXXXXX
+                             ENC_MODE_L, KC_LGUI,   SYM  , KC_SPC ,KC_BSPC,     KC_TAB , KC_ENT , NAV , KC_RALT,ENC_MODE_R
     ),
 
 /*
@@ -85,7 +96,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      KC_LALT ,KC_QUOT, KC_COMM,  KC_DOT,   KC_P ,   KC_Y ,                                        KC_F,   KC_G ,  KC_C ,   KC_R ,  KC_L , KC_SLSH,
      KC_LSFT , KC_A  ,  KC_O  ,  KC_E  ,   KC_U ,   KC_I ,                                        KC_D,   KC_H ,  KC_T ,   KC_N ,  KC_S , KC_RSFT,
      KC_LCTL ,KC_SCLN, KC_Q   ,  KC_J  ,   KC_K ,   KC_X , KC_EQL , KC_ESC,     KC_DEL , KC_MINS, KC_B,   KC_M ,  KC_W ,   KC_V ,  KC_Z , KC_RCTL,
-                                XXXXXXX, KC_LGUI,   SYM  , KC_SPC ,KC_BSPC,     KC_TAB , KC_ENT , NAV , KC_RALT,XXXXXXX
+                             ENC_MODE_L, KC_LGUI,   SYM  , KC_SPC ,KC_BSPC,     KC_TAB , KC_ENT , NAV , KC_RALT,ENC_MODE_R
     ),
 
 /*
@@ -194,9 +205,65 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 //     ),
 };
 
+void matrix_init_user(void) {
+#ifdef ENCODER_ENABLE
+    encoder_utils_init();
+#endif
+}
+
 layer_state_t layer_state_set_user(layer_state_t state) {
   return update_tri_layer_state(state, _SYM, _NAV, _ADJUST);
 }
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+#ifdef ENCODER_ENABLE
+        case ENC_MODE_L:
+            if (record->event.pressed) {
+                cycle_encoder_mode(true, false);
+            }
+            break;
+        case ENC_MODE_R:
+            if (record->event.pressed) {
+                cycle_encoder_mode(false, false);
+            }
+            break;
+#endif
+#ifdef THUMBSTICK_ENABLE
+        case TMB_MODE:
+            if (record->event.pressed) {
+                thumbstick_mode_cycle(false);
+            }
+#endif
+    }
+    return true;
+}
+
+#ifdef OLED_ENABLE
+oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
+
+bool oled_task_user(void) {
+    render_status();
+    return false;
+}
+#endif
+
+#ifdef ENCODER_ENABLE
+bool encoder_update_user(uint8_t index, bool clockwise) {
+    if (index == 0) {
+        encoder_action(get_encoder_mode(true), clockwise);
+#    ifdef OLED_ENABLE
+        oled_on();
+#    endif
+    } else if (index == 1) {
+        encoder_action(get_encoder_mode(false), clockwise);
+#    ifdef OLED_ENABLE
+        oled_on();
+#    endif
+    }
+    return true;
+}
+#endif
 
 /* The default OLED and rotary encoder code can be found at the bottom of qmk_firmware/keyboards/splitkb/kyria/rev1/rev1.c
  * These default settings can be overriden by your own settings in your keymap.c
@@ -204,6 +271,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
  * DO NOT edit the rev1.c file; instead override the weakly defined default functions by your own.
  */
 
+/*
 #ifdef OLED_ENABLE
 oled_rotation_t oled_init_user(oled_rotation_t rotation) { return OLED_ROTATION_180; }
 
@@ -290,3 +358,4 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return false;
 }
 #endif
+*/
