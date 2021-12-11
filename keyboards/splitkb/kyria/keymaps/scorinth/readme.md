@@ -4,9 +4,9 @@ This keymap is meant to combine the switchable default layers of the default Kyr
 
 Implemented:
 1. Moving control keys from the pinkies to the thumbs as in Ergodox-based keymaps.
+2. The rotary encoder modes from the "gotham" keymap.
 
 Future:
-2. The rotary encoder modes from the "gotham" keymap.
 3. A Stenography layer for use with Plover.
 4. Dynamic macro functionality.
 5. OLED and Underglow status indications.

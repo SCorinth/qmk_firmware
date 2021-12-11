@@ -261,7 +261,7 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
         oled_on();
 #    endif
     }
-    return true;
+    return false;
 }
 #endif
 
