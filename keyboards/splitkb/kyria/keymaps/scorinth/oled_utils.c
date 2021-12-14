@@ -19,6 +19,9 @@ void render_layer(void) {
         case _DVORAK:
             oled_write_P(PSTR("Dvorak\n"), false);
             break;
+        case _PLOVER:
+            oled_write_P(PSTR("Plover\n"), false);
+            break;
         case _NAV:
             oled_write_P(PSTR("Nav\n"), false);
             break;

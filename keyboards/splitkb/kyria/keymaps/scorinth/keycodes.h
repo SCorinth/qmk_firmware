@@ -5,6 +5,7 @@
 enum layers {
     _DVORAK = 0,
     _QWERTY,
+    _PLOVER,
     _NAV,
     _SYM,
     _FUNCTION,

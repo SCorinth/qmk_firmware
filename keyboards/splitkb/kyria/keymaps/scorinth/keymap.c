@@ -14,6 +14,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 #include QMK_KEYBOARD_H
+#include "keymap_steno.h"
 
 #include "keycodes.h"
 
@@ -39,6 +40,7 @@ enum layers {
 // Aliases for readability
 #define QWERTY   DF(_QWERTY)
 #define DVORAK   DF(_DVORAK)
+#define PLOVER   DF(_PLOVER)
 
 #define SYM      MO(_SYM)
 #define NAV      MO(_NAV)
@@ -100,6 +102,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
 /*
+ * Layer template
+ *
+ * ,-------------------------------------------.                              ,-------------------------------------------.
+ * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------|                              |------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |                              |      |      |      |      |      |        |
+ * |--------+------+------+------+------+------+-------------.  ,-------------+------+------+------+------+------+--------|
+ * |        |      |      |      |      |      |      |      |  |      |      |      |      |      |      |      |        |
+ * `----------------------+------+------+------+------+------|  |------+------+------+------+------+----------------------'
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        |      |      |      |      |      |  |      |      |      |      |      |
+ *                        `----------------------------------'  `----------------------------------'
+ */
+
+  [_PLOVER] = LAYOUT(
+   STN_N1 , STN_N2 , STN_N3 , STN_N4 , STN_N5 , STN_N6 ,                                     STN_N7 , STN_N8 , STN_N9 , STN_NA , STN_NB , STN_NC ,
+   XXXXXXX, STN_S1 , STN_TL , STN_PL , STN_HL , STN_ST1,                                     STN_ST3, STN_FR , STN_PR , STN_LR , STN_TR , STN_DR ,
+   XXXXXXX, STN_S2 , STN_KL , STN_WL , STN_RL , STN_ST2, XXXXXXX, DVORAK , XXXXXXX, XXXXXXX, STN_ST4, STN_RR , STN_BR , STN_GR , STN_SR , STN_ZR ,
+                           ENC_MODE_L, STN_NC ,   SYM  ,  STN_A ,  STN_O ,  STN_E ,  STN_U ,   NAV  , STN_NC ,ENC_MODE_R
+   ),
+
+/*
  * Nav Layer: Media, navigation
  *
  * ,-------------------------------------------.                              ,-------------------------------------------.
@@ -134,11 +158,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                        |      |      |      |      |      |  |      |      |      |      |      |
  *                        `----------------------------------'  `----------------------------------'
  */
-    [_SYM] = LAYOUT(
-      KC_GRV ,   KC_1 ,   KC_2 ,   KC_3 ,   KC_4 ,   KC_5 ,                                       KC_6 ,   KC_7 ,   KC_8 ,   KC_9 ,   KC_0 , KC_EQL ,
-     KC_TILD , KC_EXLM,  KC_AT , KC_HASH,  KC_DLR, KC_PERC,                                     KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PLUS,
-     KC_PIPE , KC_BSLS, KC_COLN, KC_SCLN, KC_MINS, KC_LBRC, KC_LCBR, _______, KC_LGUI, KC_RCBR, KC_RBRC, KC_UNDS, KC_COMM,  KC_DOT, KC_SLSH, KC_QUES,
-                                 _______, _______, _______, _______, _______, KC_LSFT, KC_LCTL, _______, KC_LALT, _______
+
+  [_SYM] = LAYOUT(
+    KC_GRV ,   KC_1 ,   KC_2 ,   KC_3 ,   KC_4 ,   KC_5 ,                                       KC_6 ,   KC_7 ,   KC_8 ,   KC_9 ,   KC_0 , KC_EQL ,
+    KC_TILD , KC_EXLM,  KC_AT , KC_HASH,  KC_DLR, KC_PERC,                                     KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PLUS,
+    KC_PIPE , KC_BSLS, KC_COLN, KC_SCLN, KC_MINS, KC_LBRC, KC_LCBR, _______, KC_LGUI, KC_RCBR, KC_RBRC, KC_UNDS, KC_COMM,  KC_DOT, KC_SLSH, KC_QUES,
+                              _______, _______, _______, _______, _______, KC_LSFT, KC_LCTL, _______, KC_LALT, _______
     ),
 
 /*
@@ -179,7 +204,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST] = LAYOUT(
       _______, _______, _______, QWERTY , _______, _______,                                    _______, _______, _______, _______,  _______, _______,
       _______, _______, _______, DVORAK , _______, _______,                                    RGB_TOG, RGB_SAI, RGB_HUI, RGB_VAI,  RGB_MOD, _______,
-      _______, _______, _______, _______, _______, _______,_______, _______, _______, _______, _______, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD, _______,
+      _______, _______, _______, PLOVER , _______, _______,_______, _______, _______, _______, _______, RGB_SAD, RGB_HUD, RGB_VAD, RGB_RMOD, _______,
                                  _______, _______, _______,_______, _______, _______, _______, _______, _______, _______
     ),
 
@@ -209,6 +234,7 @@ void matrix_init_user(void) {
 #ifdef ENCODER_ENABLE
     encoder_utils_init();
 #endif
+    steno_set_mode(STENO_MODE_GEMINI);
 }
 
 layer_state_t layer_state_set_user(layer_state_t state) {
